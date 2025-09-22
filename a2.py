@@ -25,21 +25,38 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
         # your job is to fill out the body of this loop
 
         # you should delete the following line
-       
+        if pind == len(pattern):
+            print("reached end of pattern not source")
+            return None
         # 1) if we reached the end of the pattern but not source
 
         # 2) if the current thing in the pattern is a %
         # WARNING: this condition contains the bulk of the code for the assignment
         # If you get stuck on this one, we encourage you to attempt the other conditions
         #   and come back to this one afterwards
+        elif pattern[pind] == "%":
+            #Two situations, % is last, and % is not last
+            if pind == len(pattern) - 1:
+                combined = " ".join(source[sind:])
+                result.append(combined)
+                print(result)
+                return result
+            else:
+                pass
 
         # 3) if we reached the end of the source but not the pattern
-
+        elif sind == len(source):
+            print("reached end of pattern not source")
+            return None
         # 4) if the current thing in the pattern is an _
-
+        elif pattern[pind] == "_":
+            print(pattern[pind], source[sind])
+            result.append(source[sind])
+            pind += 1
+            sind += 1
         # 5) if the current thing in the pattern is the same as the current thing in the
         # source
-        if pattern[pind] == source[sind]:
+        elif pattern[pind] == source[sind]:
             print(pattern[pind], source[sind])
             pind += 1
             sind += 1
@@ -63,6 +80,8 @@ if __name__ == "__main__":
     assert match(["x", "_", "z"], ["x", "y", "z"]) == ["y"], "test 5 failed"
     assert match(["x", "_", "_"], ["x", "y", "z"]) == ["y", "z"], "test 6 failed"
     assert match(["%"], ["x", "y", "z"]) == ["x y z"], "test 7 failed"
+    assert match(["x", "%"], ["x", "y", "z", "a", "b"]) == ["y z a b"], "extra test 7 failed"
+
     assert match(["x", "%", "z"], ["x", "y", "z"]) == ["y"], "test 8 failed"
     assert match(["%", "z"], ["x", "y", "z"]) == ["x y"], "test 9 failed"
     assert match(["x", "%", "y"], ["x", "y", "z"]) == None, "test 10 failed"
