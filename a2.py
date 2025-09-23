@@ -42,7 +42,17 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
                 print(result)
                 return result
             else:
-                pass
+                pind += 1
+                slocation = sind
+                while pattern[pind] != source[sind]:
+                    sind += 1
+                    
+                    if sind == len(source):
+                        return None
+
+                
+                result.append(" ".join(source[slocation:sind]))
+                
 
         # 3) if we reached the end of the source but not the pattern
         elif sind == len(source):
